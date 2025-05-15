@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import withData from '../lib/withRequset';
+import React from 'react';
 
 
+ 
 interface PostData {
   id: number;
   userId: number;
@@ -13,8 +13,8 @@ interface PostProps {
   data: PostData[];
 }
 
-export default class Post extends Component<PostProps> {
-  render() {
+const Post: React.FC<PostProps> = ({ data }) => {
+  if (!data.length) return <p>No posts found.</p>;
     return (
       <div>
         <table>
@@ -26,7 +26,7 @@ export default class Post extends Component<PostProps> {
             </tr>
           </thead>
           <tbody>
-            {this.props.data.map((user: PostData) => (
+            {data.map((user: PostData) => (
               <tr key={user.id}>
                 <td>{user.userId}</td>
                 <td>{user.title}</td>
@@ -39,5 +39,5 @@ export default class Post extends Component<PostProps> {
     );
   }
   
-}
-export const PostWithData = withData("https://jsonplaceholder.typicode.com/posts")(Post);
+
+export default Post;

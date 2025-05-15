@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import withData from '../lib/withRequset';
+import React from 'react';
 
 interface UserData {
   id: number;
@@ -8,37 +7,33 @@ interface UserData {
 }
 
 interface UserProps {
-  data: UserData[]; // Data comes as prop from withData HOC
+  data: UserData[];
 }
 
-export default class User extends Component<UserProps> {
-  render() {
-    const { data } = this.props;
+const User: React.FC<UserProps> = ({ data }) => {
+  if (!data.length) return <p>No users found.</p>;
 
-    return (
-      <div>
-        <h1>User List</h1>
-        <table style={{ border: "1px solid black", textAlign: "center", width: "100%" }}>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Email</th>
+  return (
+    <div>
+      <h1>User List</h1>
+      <table style={{ border: "1px solid black", textAlign: "center", width: "100%" }}>
+        <thead>
+          <tr>
+            <th>ID</th><th>Name</th><th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map(user => (
+            <tr key={user.id}>
+              <td>{user.id}</td>
+              <td>{user.name}</td>
+              <td>{user.email}</td>
             </tr>
-          </thead>
-          <tbody>
-            {data.map((user: UserData) => (
-              <tr key={user.id}>
-                <td>{user.id}</td>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
-  }
-}
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
 
-export const UserWithData = withData("https://jsonplaceholder.typicode.com/users")(User);
+export default User;
