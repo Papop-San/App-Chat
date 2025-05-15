@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Routes, Route, Link } from "react-router-dom";
 import { UserWithData } from './users/User';
 import { PostWithData } from './post/Post';
-import Request from './lib/requset';
+
 
 class App extends Component {
   state = {
@@ -18,11 +18,7 @@ class App extends Component {
         <Link to="/post"><button>Show Post</button></Link>
 
         <Routes>
-        <Route path="/user" element={
-          <Request url="https://jsonplaceholder.typicode.com/users">
-             {() => <UserWithData/>}
-          </Request>
-        } />
+        <Route path="/user" element={ <UserWithData/>}/>
         <Route path="/post" element={<PostWithData />} />
         </Routes>
       </div>
