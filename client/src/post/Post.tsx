@@ -1,37 +1,23 @@
-import axios from 'axios';
 import React, { Component } from 'react';
 import withData from '../lib/withRequset';
 
 
-interface UserData {
+interface PostData {
   id: number;
   userId: number;
   title: string;
   body: string;
 }
 
-interface UserState {
-  data: UserData[];
+interface PostProps {
+  data: PostData[];
 }
 
-export default class User extends Component<{}, UserState> {
-  constructor(props: UserData) {
-    super(props);
-    this.state = {
-      data: [],
-    };
-  }
+export default class Post extends Component<PostProps> {
 
-  async componentDidMount() {
-    try {
-      const result = await axios.get<UserData[]>("https://jsonplaceholder.typicode.com/posts");
-      this.setState({ data: result.data });
-    } catch (error) {
-      console.error("Error fetching users", error);
-    }
-  }
 
   render() {
+    const { data } = this.props;
     return (
       <div>
         <table>
@@ -43,7 +29,7 @@ export default class User extends Component<{}, UserState> {
             </tr>
           </thead>
           <tbody>
-            {this.state.data.map((user: UserData) => (
+            {data.map((user: PostData) => (
               <tr key={user.id}>
                 <td>{user.userId}</td>
                 <td>{user.title}</td>
@@ -57,4 +43,4 @@ export default class User extends Component<{}, UserState> {
   }
   
 }
-export const PostWithData = withData("https://jsonplaceholder.typicode.com/users")(User);
+export const PostWithData = withData("https://jsonplaceholder.typicode.com/posts")(Post);
