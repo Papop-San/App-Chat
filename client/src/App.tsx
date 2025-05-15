@@ -13,7 +13,6 @@ class App extends Component {
     return (
       <div>
         <h1>Hello {this.state.name}</h1>
-
         {/* Use Link to navigate */}
         <Link to="/user"><button>Show User</button></Link>
         <Link to="/post"><button>Show Post</button></Link>
