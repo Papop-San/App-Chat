@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import withData from '../lib/withRequset';
 
 
 interface UserData {
@@ -56,3 +57,4 @@ export default class User extends Component<{}, UserState> {
   }
   
 }
+export const PostWithData = withData("https://jsonplaceholder.typicode.com/users")(User);

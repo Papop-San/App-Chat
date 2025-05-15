@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Routes, Route, Link } from "react-router-dom";
-import User from './users/User';
-import Post from './post/Post';
+import { UserWithData } from './users/User';
+import { PostWithData } from './post/Post';
 
 class App extends Component {
   state = {
@@ -14,12 +14,12 @@ class App extends Component {
         <h1>Hello {this.state.name}</h1>
 
         {/* Use Link to navigate */}
-        <Link to="/user"><a>User</a></Link><br />
-        <Link to="/post"><a>Post</a></Link>
+        <Link to="/user"><button>Show User</button></Link>
+        <Link to="/post"><button>Show Post</button></Link>
 
         <Routes>
-          <Route path="/user" element={<User />} />
-          <Route path="/post" element={<Post />} />
+        <Route path="/user" element={<UserWithData />} />
+        <Route path="/post" element={<PostWithData />} />
         </Routes>
       </div>
     );
