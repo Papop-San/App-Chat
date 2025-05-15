@@ -14,10 +14,7 @@ interface PostProps {
 }
 
 export default class Post extends Component<PostProps> {
-
-
   render() {
-    const { data } = this.props;
     return (
       <div>
         <table>
@@ -29,7 +26,7 @@ export default class Post extends Component<PostProps> {
             </tr>
           </thead>
           <tbody>
-            {data.map((user: PostData) => (
+            {this.props.data.map((user: PostData) => (
               <tr key={user.id}>
                 <td>{user.userId}</td>
                 <td>{user.title}</td>
