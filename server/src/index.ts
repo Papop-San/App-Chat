@@ -1,22 +1,23 @@
+// server.ts
 import { createServer } from "http";
 import { Server } from "socket.io";
 
 const server = createServer();
-
-let count: number = 0;
-
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: "*", // ✅ อนุญาตให้ทุก origin เชื่อมต่อ (ถ้าทดสอบ local)
   },
 });
 
 io.on("connection", (socket) => {
-  socket.on("emit", (data) => {
-    count++; 
-    // Broad cast updated count to all clients
-    io.emit("count", { count });  
-    console.log("Count updated:", count);
+  console.log("New client connected", socket.id);
+
+  socket.on("join", (name) => {
+    console.log(`Mr.${name} enter to the chat`);
+  });
+
+  socket.on("message", (data) => {
+    io.emit("message", data);
   });
 });
 
