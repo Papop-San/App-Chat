@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Routes, Route, Link } from "react-router-dom";
 import Chatroom from './chat/Chatroom';
+import Chatform from './chat/Chatform';
 
 class App extends Component {
   state = { 
@@ -10,11 +11,10 @@ class App extends Component {
   render() {
     return (
       <div>
-  
         <Link to="/chat"><button>Show Chat</button></Link>
-
         <Routes>
-        <Route path="/chat" element={<Chatroom />} />         
+          <Route path="/chat" element={<Chatform />} />         
+          <Route path="/chatroom" element={<Chatroom />} />         
         </Routes>
       </div>
     );

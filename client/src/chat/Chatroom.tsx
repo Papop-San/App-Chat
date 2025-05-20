@@ -1,44 +1,48 @@
-import React, { Component } from 'react';
-import { io, Socket } from "socket.io-client";
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import Messagelist from './Messagelist';
+import MessageForm from './MessageForm';
 
-interface ChatroomState {
-  socket: Socket | null;
-  count: number;
+interface Message {
+  text: string;
+  member: string;
 }
 
-export default class Chatroom extends Component<{}, ChatroomState> {
+interface LocationState {
+  state?: {
+    name?: string;
+  };
+}
 
-  state: ChatroomState = {
-    socket: null,
-    count: 0
+export default function Chatroom() {
+  const location = useLocation() as LocationState;
+  const navigate = useNavigate();
+
+  const userName = location.state?.name;
+
+  // Redirect to /chat if no name provided
+  useEffect(() => {
+    if (!userName) {
+      navigate('/chat');
+    }
+  }, [userName, navigate]);
+
+  const [messages, setMessages] = useState<Message[]>([
+    { text: 'Hi', member: 'John Doe' },
+    { text: 'Hello', member: 'Jane Doe' },
+    { text: 'Good', member: 'Deaw Doe' },
+    { text: 'Great', member: 'Fon Doe' },
+  ]);
+
+  
+  const handleSend = (message: Message) => {
+    setMessages([...messages, message]);
   };
 
-  componentDidMount() {
-    const socket: Socket = io("http://localhost:8080");
-    this.setState({ socket });
-    // Listen for the "count" event from the server
-    socket.on("count", (data) => {
-      this.setState({ count: data.count });
-    });
-  }
-
-  onClick = () => {
-    // Emit an event to the server when the button is clicked
-    const { socket } = this.state;
-    if (socket) {
-      socket.emit("emit", {});  
-    } else {
-      console.error("Socket not connected yet.");
-    }
-  }
-
-  render() {
-    return (
-      <div>
-        <h1>Chat Room</h1>
-        <button onClick={this.onClick}>Count</button>
-        <p>Count: {this.state.count}</p>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Messagelist messages={messages} />
+      <MessageForm onMessagesend={handleSend} currentMember={userName || 'Guest'} />
+    </div>
+  );
 }

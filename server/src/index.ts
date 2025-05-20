@@ -13,7 +13,7 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
   socket.on("emit", (data) => {
-    count++;
+    count++; 
     // Broad cast updated count to all clients
     io.emit("count", { count });  
     console.log("Count updated:", count);
