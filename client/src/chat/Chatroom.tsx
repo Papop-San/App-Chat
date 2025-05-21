@@ -15,6 +15,7 @@ interface LocationState {
   };
 }
 
+
 export default function Chatroom() {
   const location = useLocation() as LocationState;
   const navigate = useNavigate();
@@ -63,7 +64,7 @@ export default function Chatroom() {
 
   return (
     <div>
-      <Messagelist messages={messages} />
+      <Messagelist messages={messages} currentUser={userName || 'Guest'} />
       <MessageForm onMessagesend={handleSend} currentMember={userName || 'Guest'} />
     </div>
   );

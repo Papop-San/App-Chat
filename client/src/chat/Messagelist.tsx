@@ -8,18 +8,17 @@ interface IMessage {
 
 interface Props {
   messages: IMessage[];
+  currentUser: string;  
 }
 
 export default class Messagelist extends Component<Props> {
   render() {
-    const { messages } = this.props;
+    const { messages, currentUser } = this.props;
 
     return (
-      <ul>
+      <ul className='Messages-list' style={{ paddingTop: "10px" }}>
         {messages.map((message, index) => (
-          <li key={index}>
-            <Message message={message} />
-          </li>
+          <Message key={index} message={message} currentUser={currentUser} />
         ))}
       </ul>
     );

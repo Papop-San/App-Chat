@@ -1,7 +1,21 @@
 import React, { Component } from 'react';
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from 'react-router-dom';
 import Chatroom from './chat/Chatroom';
 import Chatform from './chat/Chatform';
+import { AppBar, Toolbar, Typography, Box } from '@mui/material';
+
+// ตัวช่วยดึงชื่อจาก location state (hook ใช้ในฟังก์ชันเท่านั้น)
+const  Header = () => {
+  return (
+    <AppBar position="static">
+      <Toolbar>
+        <Typography variant="h6" component="div">
+          AppChat
+        </Typography>
+      </Toolbar>
+    </AppBar>
+  );
+}
 
 class App extends Component {
   state = { 
@@ -10,13 +24,13 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <Link to="/chat"><button>Show Chat</button></Link>
+      <Box sx={{ flexGrow: 1 }}>
+        <Header />
         <Routes>
           <Route path="/chat" element={<Chatform />} />         
           <Route path="/chatroom" element={<Chatroom />} />         
         </Routes>
-      </div>
+      </Box>
     );
   }
 }

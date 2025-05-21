@@ -33,16 +33,15 @@ export default class MessageForm extends Component<Props> {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.onSubmit}>
+        <form onSubmit={this.onSubmit} className='MessageForm'>
           <input type="text"
             value={this.state.text}
             onChange={this.onChange}
             placeholder="Type a message"
+            className='MessageInput'
           />
-          <button type="submit">Send</button>
+          <button type="submit" className='MessageButton  '>Send</button>
         </form>
-      </div>
     );
   }
 }
